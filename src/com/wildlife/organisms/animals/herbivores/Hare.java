@@ -1,4 +1,4 @@
-package com.wildlife.animals.herbivores;
+package com.wildlife.organisms.animals.herbivores;
 
 public class Hare {
     public static void main(String[] args) {

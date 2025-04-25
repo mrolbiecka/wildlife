@@ -1,11 +1,10 @@
 package com.wildlife;
 
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static void main(String[] args) {
-        Board board = new Board();
+        Board board = new Board(50, 50);
         board.printBoard();
     }
 }

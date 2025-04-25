@@ -1,4 +1,4 @@
-package com.wildlife.plants;
+package com.wildlife.organisms.plants;
 
 public class Mushroom {
     public static void main(String[] args) {
