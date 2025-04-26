@@ -11,7 +11,7 @@ public abstract class Organism {
     protected Board board;
 
 // napraw, żeby było przekazywane dynamicznie
-    public Organism(int x, int y, int x_board_size, int y_board_size, Board board){
+    public Organism(int x, int y, int x_board_size, int y_board_size, Board board) {
         posX = x;
         posY = y;
         this.x_board_size = x_board_size; // wezmę z siebie x_board size (z mojego atrybutu i przypiszę do niego to co otrzymałem czyli argument x_board_size z konstruktora)

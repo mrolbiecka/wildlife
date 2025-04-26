@@ -16,28 +16,44 @@ public abstract class Animal extends Organism {
     }
 
     @Override
-    public void performAction(){
-        int direction = random.nextInt(1,5);
-        if (direction == 1) {
-            if (super.posX + 1 < super.x_board_size) {
-                super.posX = super.posX + 1;
-            }
-        }
-        else if (direction == 2){
-            if (super.posX - 1 > 0) {
-                super.posX = super.posX - 1;
-            }
-        }
-        else if (direction == 3){
-            if (super.posY + 1 < super.y_board_size) {
-                super.posY = super.posY + 1;
-            }
-        }
-        else if (direction == 4){
-            if (super.posY - 1 > 0) {
-                super.posY = super.posY - 1;
-            }
-        }
-    }
+    public void performAction() {
+        boolean successfulMove = false;
 
+        do {
+            int direction = random.nextInt(1, 5);
+            if (direction == 1) {
+                int nextPosition = super.posX + 1;
+                if (nextPosition < super.x_board_size) {
+                    if (board.getOrganismFromField(nextPosition, posY) == null) {
+                        super.posX = nextPosition;
+                        successfulMove = true;
+                    }
+                }
+            } else if (direction == 2) {
+                int nextPosition = super.posX - 1;
+                if (nextPosition >= 0) {
+                    if (board.getOrganismFromField(nextPosition, posY) == null) {
+                        super.posX = nextPosition;
+                        successfulMove = true;
+                    }
+                }
+            } else if (direction == 3) {
+                int nextPosition = super.posY + 1;
+                if (nextPosition < super.y_board_size) {
+                    if (board.getOrganismFromField(posX, nextPosition) == null) {
+                        super.posY = nextPosition;
+                        successfulMove = true;
+                    }
+                }
+            } else if (direction == 4) {
+                int nextPosition = super.posY - 1;
+                if (nextPosition >= 0) {
+                    if (board.getOrganismFromField(posX, nextPosition) == null) {
+                        super.posY = nextPosition;
+                        successfulMove = true;
+                    }
+                }
+            }
+        } while (!successfulMove) ;
+    }
 }
