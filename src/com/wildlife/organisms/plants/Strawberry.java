@@ -1,9 +1,14 @@
 package com.wildlife.organisms.plants;
 
-public class Strawberry {
-    public static void main(String[] args) {
-        String strawberry = "🍓";
-        System.out.println(strawberry);
+import com.wildlife.Board;
+
+public class Strawberry extends Plant {
+    public Strawberry(int x, int y, int x_board_size, int y_board_size, Board board) {
+        super(x, y, x_board_size, y_board_size, board);
+    }
+
+    @Override
+    public String toString() {
+        return "🍓";
     }
 }
-

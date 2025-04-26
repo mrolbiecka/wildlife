@@ -3,18 +3,18 @@ package com.wildlife.organisms.animals;
 
 import com.wildlife.Board;
 import com.wildlife.organisms.Organism;
-
 import java.util.Random;
 
 public abstract class Animal extends Organism {
-    // void - typ który nic nie zwraca
     private Random random = new Random();
-    private Board board;
+    private byte initiative;
+    private byte hunger;
+    // void - typ który nic nie zwraca
 
-    public Animal(int x, int y, int x_board_size, int y_board_size, Board board) {
-        super(x, y, x_board_size, y_board_size); // odwołuje się do konstruktora klasy wyżej (Organism) a super. odwołuje się do metod klasy wyżej (SUPER DAJE DO KLASY WYŻĘJ)
-        this.board = board;
+    public Animal(int x, int y, int x_board_size, int y_board_size, Board board, byte initiative, byte hunger) {
+        super(x, y, x_board_size, y_board_size, board); // odwołuje się do konstruktora klasy wyżej (Organism) a super. odwołuje się do metod klasy wyżej (SUPER DAJE DO KLASY WYŻĘJ)
     }
+
     @Override
     public void performAction(){
         int direction = random.nextInt(1,5);
