@@ -3,8 +3,9 @@ package com.wildlife.organisms.plants;
 import com.wildlife.Board;
 
 public class Strawberry extends Plant {
-    public Strawberry(int x, int y, int x_board_size, int y_board_size, Board board) {
-        super(x, y, x_board_size, y_board_size, board);
+
+    public Strawberry(int x, int y, Board board) {
+        super(x, y, board);
     }
 
     @Override

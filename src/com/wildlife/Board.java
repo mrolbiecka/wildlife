@@ -4,6 +4,7 @@ import com.wildlife.organisms.Organism;
 import com.wildlife.organisms.animals.carnivores.Bear;
 import com.wildlife.organisms.animals.carnivores.Wolf;
 import com.wildlife.organisms.animals.herbivores.Bird;
+import com.wildlife.organisms.animals.herbivores.Boar;
 import com.wildlife.organisms.animals.herbivores.Hare;
 import com.wildlife.organisms.animals.herbivores.Squirel;
 import com.wildlife.organisms.plants.Grass;
@@ -25,24 +26,32 @@ public class Board {
         initializeOrganisms();
     }
 
+    public int getSizeX() {
+        return x;
+    }
+
+    public int getSizeY() {
+        return y;
+    }
+
     private void initializeOrganisms() {
-        // Boar boar = new Boar(0, 0, x, y, this); // napraw wychodzenie poza krawędzie
-        organisms.add(new Bird(0, 0, x, y, this));
-        organisms.add(new Bear(3, 2, x, y, this));
-        organisms.add(new Grass(1, 3, x, y, this));
-        organisms.add(new Strawberry(1, 4, x, y, this));
-        organisms.add(new Mushroom(9, 9, x, y, this));
-        organisms.add(new Wolf(8, 7, x, y, this));
-        organisms.add(new Squirel(1, 7, x, y, this));
-        organisms.add(new Hare(9, 8, x, y, this));
+        organisms.add(new Bird(0, 0, this));
+        organisms.add(new Bear(3, 2, this));
+        organisms.add(new Grass(1, 3, this));
+        organisms.add(new Strawberry(1, 4, this));
+        organisms.add(new Mushroom(9, 9, this));
+        organisms.add(new Wolf(8, 7, this));
+        organisms.add(new Squirel(1, 7,this));
+        organisms.add(new Hare(9, 8, this));
+        organisms.add(new Boar(7, 2, this));
     }
 
     public void printBoard() {
         Organism[][] board = new Organism[x][y];
 
         for (Organism organism : organisms) {
-            int posX = organism.returnPositionPosX();
-            int posY = organism.returnPositionPosY();
+            int posX = organism.getPositionX();
+            int posY = organism.getPositionY();
             board[posX][posY] = organism;
         }
 
@@ -60,13 +69,13 @@ public class Board {
 
     public void move() {
         for (Organism organism : organisms) {
-                organism.performAction();
+            organism.performAction();
         }
     }
 
     public Organism getOrganismFromField(int x, int y) {
         for (Organism organism : organisms) {
-            if (organism.returnPositionPosX() == x && organism.returnPositionPosY() == y) {
+            if (organism.getPositionX() == x && organism.getPositionY() == y) {
                 return organism;
             }
         }

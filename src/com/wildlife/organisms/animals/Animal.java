@@ -1,59 +1,60 @@
 package com.wildlife.organisms.animals;
 
-
 import com.wildlife.Board;
 import com.wildlife.organisms.Organism;
 import java.util.Random;
 
 public abstract class Animal extends Organism {
+
     private Random random = new Random();
     private byte initiative;
     private byte hunger;
     // void - typ który nic nie zwraca
 
-    public Animal(int x, int y, int x_board_size, int y_board_size, Board board, byte initiative, byte hunger) {
-        super(x, y, x_board_size, y_board_size, board); // odwołuje się do konstruktora klasy wyżej (Organism) a super. odwołuje się do metod klasy wyżej (SUPER DAJE DO KLASY WYŻĘJ)
+    public Animal(int x, int y, Board board, byte initiative, byte hunger) {
+        super(x, y, board); // odwołuje się do konstruktora klasy wyżej (Organism) a super. odwołuje się do metod klasy wyżej (SUPER DAJE DO KLASY WYŻĘJ)
+        this.initiative = initiative;
+        this.hunger = hunger;
     }
 
     @Override
     public void performAction() {
         boolean successfulMove = false;
-
         do {
             int direction = random.nextInt(1, 5);
             if (direction == 1) {
-                int nextPosition = super.posX + 1;
-                if (nextPosition < super.x_board_size) {
-                    if (board.getOrganismFromField(nextPosition, posY) == null) {
-                        super.posX = nextPosition;
+                int nextPosition = super.positionX + 1;
+                if (nextPosition < board.getSizeX()) {
+                    if (board.getOrganismFromField(nextPosition, positionY) == null) {
+                        super.positionX = nextPosition;
                         successfulMove = true;
                     }
                 }
             } else if (direction == 2) {
-                int nextPosition = super.posX - 1;
+                int nextPosition = super.positionX - 1;
                 if (nextPosition >= 0) {
-                    if (board.getOrganismFromField(nextPosition, posY) == null) {
-                        super.posX = nextPosition;
+                    if (board.getOrganismFromField(nextPosition, positionY) == null) {
+                        super.positionX = nextPosition;
                         successfulMove = true;
                     }
                 }
             } else if (direction == 3) {
-                int nextPosition = super.posY + 1;
-                if (nextPosition < super.y_board_size) {
-                    if (board.getOrganismFromField(posX, nextPosition) == null) {
-                        super.posY = nextPosition;
+                int nextPosition = super.positionY + 1;
+                if (nextPosition < board.getSizeY()) {
+                    if (board.getOrganismFromField(positionX, nextPosition) == null) {
+                        super.positionY = nextPosition;
                         successfulMove = true;
                     }
                 }
             } else if (direction == 4) {
-                int nextPosition = super.posY - 1;
+                int nextPosition = super.positionY - 1;
                 if (nextPosition >= 0) {
-                    if (board.getOrganismFromField(posX, nextPosition) == null) {
-                        super.posY = nextPosition;
+                    if (board.getOrganismFromField(positionX, nextPosition) == null) {
+                        super.positionY = nextPosition;
                         successfulMove = true;
                     }
                 }
             }
-        } while (!successfulMove) ;
+        } while (!successfulMove);
     }
 }
