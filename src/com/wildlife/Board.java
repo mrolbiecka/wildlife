@@ -1,30 +1,50 @@
 package com.wildlife;
 
+import com.wildlife.organisms.Organism;
+import com.wildlife.organisms.animals.Animal;
 import com.wildlife.organisms.animals.carnivores.Bear;
 import com.wildlife.organisms.animals.herbivores.Bird;
-import com.wildlife.organisms.animals.herbivores.Boar;
+
+import java.util.ArrayList;
 
 //2 zmienne pole 1 i pole 2
 public class Board {
-    Object[][] organismsArray;
+    private final int x;
+    private final int y;
+    private ArrayList<Organism> organisms = new ArrayList<Organism>(); //List Interface, a Array to instancja Interface (
+    // typ generyczny
+
 
     //konstruktor
     public Board(int x, int y) {
-        organismsArray = new Object[x][y];
+        this.x = x;
+        this.y = y;
+        initializeOrganisms();
+    }
+
+    private void initializeOrganisms() {
+        // Boar boar = new Boar(0, 0, x, y, this);
+        Bird bird = new Bird(1, 1, x, y, this);
+        organisms.add(bird);
+        Bear bear = new Bear(3,2, x, y, this);
+        organisms.add(bear);
     }
 
 
-    Boar boar = new Boar();
-    Bird bird = new Bird();
-    Bear bear = new Bear();
+//lista zwierzaków for item in list wstaw na pozycje
 
     public void printBoard() {
-        organismsArray[0][0] = boar;
-        organismsArray[10][10] = bird;
-        organismsArray[30][30] = bear;
-        for (Object[] organismRow : organismsArray){
-            for (Object organism : organismRow) {
-                if (organism == null){
+        Organism[][] board = new Organism[x][y];
+
+        for (Organism organism: organisms) {
+            int posX = organism.returnPositionPosX();
+            int posY = organism.returnPositionPosY();
+            board[posX][posY] = organism;
+        }
+
+        for (Organism[] organismRow : board) {
+            for (Organism organism : organismRow) {
+                if (organism == null) {
                     System.out.print(" ");
                 } else {
                     System.out.print(organism);
@@ -34,4 +54,13 @@ public class Board {
             System.out.print("\n");
         }
     }
+    public void move() {
+        for (Organism organism: organisms) {
+                if (organism != null) {
+                    organism.performAction();
+                }
+        }
+    }
 }
+// czyszczenie pozycji
+// debugowanie funkcji move
