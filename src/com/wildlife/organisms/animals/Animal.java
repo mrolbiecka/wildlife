@@ -16,6 +16,9 @@ public abstract class Animal extends Organism {
         this.initiative = initiative;
         this.hunger = hunger;
     }
+    @Override
+    public void multiplication() {
+    }
 
     @Override
     public void performAction() {

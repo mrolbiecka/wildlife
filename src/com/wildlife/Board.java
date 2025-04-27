@@ -17,6 +17,7 @@ public class Board {
     private final int x;
     private final int y;
     private ArrayList<Organism> organisms = new ArrayList<>(); //List Interface, a Array to instancja Interface (
+    private ArrayList<Organism> newOrganisms = new ArrayList<>(); // Arraylist nie ma ustalonego z góry limitu ilości
     // typ generyczny (1 array list może przechoywać wiele różnych typów) w typie generycznym nie trzeba dwa razy podawać dwa razy co jest w środku
 
     //konstruktor
@@ -71,6 +72,7 @@ public class Board {
         for (Organism organism : organisms) {
             organism.performAction();
         }
+        addnewOrganismtoOrganisms();
     }
 
     public Organism getOrganismFromField(int x, int y) {
@@ -80,5 +82,13 @@ public class Board {
             }
         }
         return null;
+    }
+
+    public void createOrganism(Organism newOrganism) {
+        newOrganisms.add(newOrganism);
+    }
+    public void addnewOrganismtoOrganisms() {
+        organisms.addAll(newOrganisms);
+        newOrganisms.clear();
     }
 }

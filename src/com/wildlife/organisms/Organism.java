@@ -23,6 +23,8 @@ public abstract class Organism {
     }
 
     public abstract void performAction();
+
+    public abstract void multiplication();
 }
 
 

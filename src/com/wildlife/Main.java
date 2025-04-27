@@ -7,5 +7,7 @@ public class Main {
         board.move();
         System.out.println(" ------ ");
         board.printBoard();
+
+
     }
 }
