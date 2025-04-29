@@ -25,6 +25,12 @@ public abstract class Organism {
     public abstract void performAction();
 
     public abstract void multiplication();
+
+    public abstract void eat();
+
+    public abstract void checkIfFight();
 }
+
+
 
 

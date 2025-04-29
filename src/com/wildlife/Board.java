@@ -36,15 +36,16 @@ public class Board {
     }
 
     private void initializeOrganisms() {
-        organisms.add(new Bird(0, 0, this));
+        //organisms.add(new Bird(0, 0, this));
+        organisms.add(new Bear(3,3, this));
         organisms.add(new Bear(3, 2, this));
-        organisms.add(new Grass(1, 3, this));
-        organisms.add(new Strawberry(1, 4, this));
-        organisms.add(new Mushroom(9, 9, this));
+        //organisms.add(new Grass(1, 3, this));
+        //organisms.add(new Strawberry(1, 4, this));
+        //organisms.add(new Mushroom(9, 9, this));
         organisms.add(new Wolf(8, 7, this));
-        organisms.add(new Squirel(1, 7,this));
-        organisms.add(new Hare(9, 8, this));
-        organisms.add(new Boar(7, 2, this));
+        organisms.add(new Wolf(8, 8,this));
+        organisms.add(new Wolf(8, 6, this));
+        organisms.add(new Bear(4, 3, this));
     }
 
     public void printBoard() {
@@ -87,8 +88,11 @@ public class Board {
     public void createOrganism(Organism newOrganism) {
         newOrganisms.add(newOrganism);
     }
+
     public void addnewOrganismtoOrganisms() {
         organisms.addAll(newOrganisms);
         newOrganisms.clear();
     }
+
+
 }
