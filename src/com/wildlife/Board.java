@@ -11,6 +11,7 @@ import com.wildlife.organisms.plants.Grass;
 import com.wildlife.organisms.plants.Mushroom;
 import com.wildlife.organisms.plants.Strawberry;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 //2 zmienne pole 1 i pole 2
 public class Board {
@@ -46,6 +47,16 @@ public class Board {
         organisms.add(new Wolf(8, 8,this));
         organisms.add(new Wolf(8, 6, this));
         organisms.add(new Bear(4, 3, this));
+    }
+
+    public void removeOrganismFromBoard(int X, int Y) {
+        Iterator<Organism> iterator = organisms.iterator();
+        while (iterator.hasNext()) {
+            Organism organism = iterator.next();
+            if (organism.getPositionY() == Y && organism.getPositionX() == X) {
+                iterator.remove();
+            }
+        }
     }
 
     public void printBoard() {

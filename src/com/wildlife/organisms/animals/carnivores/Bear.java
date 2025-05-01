@@ -4,10 +4,12 @@ import com.wildlife.Board;
 import com.wildlife.organisms.animals.Animal;
 
 public class Bear extends Animal {
+    private static final byte maxHunger = 75;
+    private static final byte initiative = 10;
     // final nie można zmienić wartości zmniennej
 
     public Bear(int x, int y, Board board) {
-        super(x, y, board, (byte) 10, (byte) 75);  //super z nawiasami konstruktor wyżej, super z kropką metodę wyżej
+        super(x, y, board, initiative, maxHunger);  //super z nawiasami konstruktor wyżej, super z kropką metodę wyżej
     }
 
     @Override // każdy obiekt w javie dziedziczy po klasie typu Object

@@ -13,6 +13,7 @@ import com.wildlife.organisms.plants.Mushroom;
 import com.wildlife.organisms.plants.Strawberry;
 
 
+import java.util.Iterator;
 import java.util.Random;
 
 public abstract class Animal extends Organism {
@@ -20,13 +21,17 @@ public abstract class Animal extends Organism {
     private Random random = new Random();
     private byte initiative;
     private byte hunger;
+    private byte maxHunger;
+    private final int spreadingPercentProbability = 50;
     // void - typ który nic nie zwraca
 
-    public Animal(int x, int y, Board board, byte initiative, byte hunger) {
+    public Animal(int x, int y, Board board, byte initiative, byte maxHunger) {
         super(x, y, board); // odwołuje się do konstruktora klasy wyżej (Organism) a super. odwołuje się do metod klasy wyżej (SUPER DAJE DO KLASY WYŻĘJ)
         this.initiative = initiative;
-        this.hunger = hunger;
+        this.hunger = maxHunger;
+        this.maxHunger = maxHunger;
     }
+
     @Override
     public void multiplication() {
         boolean successfulMove = false;
@@ -92,22 +97,25 @@ public abstract class Animal extends Organism {
         System.out.println("Organism was created on the field" + "pos X: " + nextPositionX + "pos Y: "  + nextPositionY);
     }
 
-    @Override
-    public void eat() {
-        // idź na miejsce tego organizmu i go zjedz
-        // ten organizm jest dodawany do listy do usunięcia na końcu rundy jest usuwany (ale powinien być usunięty od razu, żeby nie wykonał
-        // swojego ruchu
-        // przekaż pozycje rośliny i wtedy w tej pozycji ustaw organism (zmień pozycje tak jak w move)
+    private void eat(Organism organism) {
+        int posX = organism.getPositionX();
+        int posY = organism.getPositionY();
+        board.removeOrganismFromBoard(positionX, positionY);
+        positionX = posX;
+        positionY = posY;
+        this.hunger = maxHunger;
     }
 
-    @Override
-    public void checkIfFight() {
 
+    public void checkIfFight(Organism organism) {
+        int probability = random.nextInt(0, 100);
+        if (probability < spreadingPercentProbability) {
+            eat(organism);
+        }
     }
 
     @Override
     public void performAction() {
-        boolean successfulMove = false;
         int direction = random.nextInt(1, 5);
         int[] directions = {direction, direction + 1, direction + 2, direction + 3};
         for (int dir: directions) {
@@ -116,7 +124,6 @@ public abstract class Animal extends Organism {
                 if (nextPosition < board.getSizeX()) {
                     if (board.getOrganismFromField(nextPosition, positionY) == null) {
                         super.positionX = nextPosition;
-                        successfulMove = true;
                         break;
                     } else {
                         String organismFromFieldClass = board.getOrganismFromField(nextPosition, positionY).getClass().getSimpleName();
@@ -124,10 +131,11 @@ public abstract class Animal extends Organism {
                             multiplication();
                             break;
                         } else {
+                            Organism organismFromField = board.getOrganismFromField(nextPosition, positionY);
                             if (organismFromFieldClass.equals("Grass") || organismFromFieldClass.equals("Mushroom") || organismFromFieldClass.equals("Strawberry")) {
-                                eat();
+                                eat(organismFromField);
                             } else {
-                                checkIfFight();
+                                checkIfFight(organismFromField);
                             }
                         }
                     }
@@ -138,13 +146,19 @@ public abstract class Animal extends Organism {
                 if (nextPosition >= 0) {
                     if (board.getOrganismFromField(nextPosition, positionY) == null) {
                         super.positionX = nextPosition;
-                        successfulMove = true;
                         break;
                     } else {
                         String organismFromFieldClass = board.getOrganismFromField(nextPosition, positionY).getClass().getSimpleName();
                         if (organismFromFieldClass.equals(this.getClass().getSimpleName())) {
                             multiplication();
                             break;
+                        } else {
+                            Organism organismFromField = board.getOrganismFromField(nextPosition, positionY);
+                            if (organismFromFieldClass.equals("Grass") || organismFromFieldClass.equals("Mushroom") || organismFromFieldClass.equals("Strawberry")) {
+                                eat(organismFromField);
+                            } else {
+                                checkIfFight(organismFromField);
+                            }
                         }
                     }
                 }
@@ -153,13 +167,19 @@ public abstract class Animal extends Organism {
                 if (nextPosition < board.getSizeY()) {
                     if (board.getOrganismFromField(positionX, nextPosition) == null) {
                         super.positionY = nextPosition;
-                        successfulMove = true;
                         break;
                     } else {
                         String organismFromFieldClass = board.getOrganismFromField(positionX, nextPosition).getClass().getSimpleName();
                         if (organismFromFieldClass.equals(this.getClass().getSimpleName())) {
                             multiplication();
                             break;
+                        } else {
+                            Organism organismFromField = board.getOrganismFromField(positionX, nextPosition);
+                            if (organismFromFieldClass.equals("Grass") || organismFromFieldClass.equals("Mushroom") || organismFromFieldClass.equals("Strawberry")) {
+                                eat(organismFromField);
+                            } else {
+                                checkIfFight(organismFromField);
+                            }
                         }
                     }
                 }
@@ -168,13 +188,19 @@ public abstract class Animal extends Organism {
                 if (nextPosition >= 0) {
                     if (board.getOrganismFromField(positionX, nextPosition) == null) {
                         super.positionY = nextPosition;
-                        successfulMove = true;
                         break;
                     } else {
                         String organismFromFieldClass = board.getOrganismFromField(positionX, nextPosition).getClass().getSimpleName();
                         if (organismFromFieldClass.equals(this.getClass().getSimpleName())) {
                             multiplication();
                             break;
+                        }  else {
+                            Organism organismFromField = board.getOrganismFromField(positionX, nextPosition);
+                            if (organismFromFieldClass.equals("Grass") || organismFromFieldClass.equals("Mushroom") || organismFromFieldClass.equals("Strawberry")) {
+                                eat(organismFromField);
+                            } else {
+                                checkIfFight(organismFromField);
+                            }
                         }
                     }
                 }

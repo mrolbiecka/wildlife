@@ -17,7 +17,7 @@ public abstract class Organism {
     public int getPositionX() {
         return positionX;
     }
-
+// getter
     public int getPositionY() {
         return positionY;
     }
@@ -26,9 +26,6 @@ public abstract class Organism {
 
     public abstract void multiplication();
 
-    public abstract void eat();
-
-    public abstract void checkIfFight();
 }
 
 
