@@ -15,9 +15,20 @@ public abstract class Plant extends Organism {
     }
 
     @Override
+    public boolean isPlant() {
+        return true;
+    }
+
+    @Override
     public void performAction() {
         multiplication();
     }
+
+    @Override
+    public byte getInitiative() {
+        return 0;
+    }
+
 
     @Override
     public void multiplication() {
@@ -25,7 +36,6 @@ public abstract class Plant extends Organism {
         int nextPositionX = super.positionX;
         int nextPositionY = super.positionY;
         if (probability < spreadingPercentProbability) {
-            boolean successfulMove = false;
             int direction = random.nextInt(1, 5);
             int[] directions = {direction, direction + 1, direction + 2, direction + 3};
 
@@ -35,7 +45,6 @@ public abstract class Plant extends Organism {
                     if (nextPosition < board.getSizeX()) {
                         if (board.getOrganismFromField(nextPosition, positionY) == null) {
                             nextPositionX = nextPosition;
-                            successfulMove = true;
                         }
                     }
                 } else if (dir % 4 == 1) {
@@ -43,7 +52,6 @@ public abstract class Plant extends Organism {
                     if (nextPosition >= 0) {
                         if (board.getOrganismFromField(nextPosition, positionY) == null) {
                             nextPositionX = nextPosition;
-                            successfulMove = true;
                         }
                     }
                 } else if (dir % 4 == 2) {
@@ -51,7 +59,6 @@ public abstract class Plant extends Organism {
                     if (nextPosition < board.getSizeY()) {
                         if (board.getOrganismFromField(positionX, nextPosition) == null) {
                             nextPositionY = nextPosition;
-                            successfulMove = true;
                         }
                     }
                 } else if (dir % 4 == 3) {
@@ -59,7 +66,6 @@ public abstract class Plant extends Organism {
                     if (nextPosition >= 0) {
                         if (board.getOrganismFromField(positionX, nextPosition) == null) {
                             nextPositionY = nextPosition;
-                            successfulMove = true;
                         }
                     }
                 }

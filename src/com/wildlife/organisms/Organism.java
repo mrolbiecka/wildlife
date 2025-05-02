@@ -26,6 +26,10 @@ public abstract class Organism {
 
     public abstract void multiplication();
 
+    public abstract boolean isPlant();
+
+    public abstract byte getInitiative();
+
 }
 
 

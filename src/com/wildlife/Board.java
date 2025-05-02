@@ -3,13 +3,7 @@ package com.wildlife;
 import com.wildlife.organisms.Organism;
 import com.wildlife.organisms.animals.carnivores.Bear;
 import com.wildlife.organisms.animals.carnivores.Wolf;
-import com.wildlife.organisms.animals.herbivores.Bird;
-import com.wildlife.organisms.animals.herbivores.Boar;
-import com.wildlife.organisms.animals.herbivores.Hare;
-import com.wildlife.organisms.animals.herbivores.Squirel;
-import com.wildlife.organisms.plants.Grass;
-import com.wildlife.organisms.plants.Mushroom;
-import com.wildlife.organisms.plants.Strawberry;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
