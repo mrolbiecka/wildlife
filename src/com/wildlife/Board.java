@@ -37,9 +37,9 @@ public class Board {
         //organisms.add(new Grass(1, 3, this));
         //organisms.add(new Strawberry(1, 4, this));
         //organisms.add(new Mushroom(9, 9, this));
-        organisms.add(new Wolf(8, 7, this));
-        organisms.add(new Wolf(8, 8,this));
-        organisms.add(new Wolf(8, 6, this));
+        //organisms.add(new Wolf(8, 7, this));
+        //organisms.add(new Wolf(8, 8,this));
+        //organisms.add(new Wolf(8, 6, this));
         organisms.add(new Bear(4, 3, this));
     }
 
@@ -83,6 +83,11 @@ public class Board {
 
     public Organism getOrganismFromField(int x, int y) {
         for (Organism organism : organisms) {
+            if (organism.getPositionX() == x && organism.getPositionY() == y) {
+                return organism;
+            }
+        }
+        for (Organism organism : newOrganisms) {
             if (organism.getPositionX() == x && organism.getPositionY() == y) {
                 return organism;
             }

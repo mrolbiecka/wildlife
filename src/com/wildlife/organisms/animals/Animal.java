@@ -75,7 +75,8 @@ public abstract class Animal extends Organism {
                         case "Squirrel" -> board.createOrganism(new Squirrel(nextXPosition, nextYPosition, board));
                         case "Bear" -> board.createOrganism(new Bear(nextXPosition, nextYPosition, board));
                         case "Wolf" -> board.createOrganism(new Wolf(nextXPosition, nextYPosition, board));
-                    }
+
+                    } break;
                 }
             }
         }
