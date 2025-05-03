@@ -29,7 +29,6 @@ public abstract class Plant extends Organism {
         return 0;
     }
 
-
     @Override
     protected void multiplication() {
         int probability = random.nextInt(0, 100);

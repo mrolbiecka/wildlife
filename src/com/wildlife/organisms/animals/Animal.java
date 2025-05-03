@@ -31,6 +31,55 @@ public abstract class Animal extends Organism {
     }
 
     @Override
+    public byte getInitiative() {
+        return initiative;
+    }
+
+    @Override
+    public void performAction() {
+        int direction = random.nextInt(1, 5);
+        int[] directions = {direction, direction + 1, direction + 2, direction + 3};
+        this.hunger--;
+        for (int dir: directions) {
+            int nextXPosition = super.positionX;
+            int nextYPosition = super.positionY;
+            switch (dir % 4) {
+                case 0:
+                    nextXPosition++;
+                    break;
+                case 1:
+                    nextXPosition--;
+                    break;
+                case 2:
+                    nextYPosition++;
+                    break;
+                case 3:
+                    nextYPosition--;
+                    break;
+            }
+
+            Organism organismFromNextPosition = board.getOrganismFromField(nextXPosition, nextYPosition);
+            if (organismFromNextPosition == null) {
+                super.positionX = nextXPosition;
+                super.positionY = nextYPosition;
+                break;
+            } else {
+                if (checkIfTheSameSpecies(organismFromNextPosition)) {
+                    multiplication();
+                    break;
+                } else {
+                    if (organismFromNextPosition.isPlant()) {
+                        eat(organismFromNextPosition);
+                    } else {
+                        checkIfFight(organismFromNextPosition);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
     protected void multiplication() {
         int direction = random.nextInt(1, 5);
         int[] directions = {direction, direction + 1, direction + 2, direction + 3};
@@ -56,7 +105,12 @@ public abstract class Animal extends Organism {
                     nextYPosition--;
                     successfulMove = true;
                     break;
+
             }
+            if (nextXPosition < 0 || nextXPosition >= board.getSizeX() || nextYPosition < 0 || nextYPosition >= board.getSizeY()) {
+                continue;
+            }
+
             if (successfulMove) {
                 Organism organismFromField = board.getOrganismFromField(nextXPosition, nextYPosition);
                 if (organismFromField == null) {
@@ -97,54 +151,5 @@ public abstract class Animal extends Organism {
         String otherOrganismSpeciesName = organism.getClass().getSimpleName();
 
         return currentSpeciesName.equals(otherOrganismSpeciesName);
-    }
-
-    @Override
-    public byte getInitiative() {
-        return initiative;
-    }
-
-    @Override
-    public void performAction() {
-        int direction = random.nextInt(1, 5);
-        int[] directions = {direction, direction + 1, direction + 2, direction + 3};
-
-        for (int dir: directions) {
-            int nextXPosition = super.positionX;
-            int nextYPosition = super.positionY;
-            switch (dir % 4) {
-                case 0:
-                    nextXPosition++;
-                    break;
-                case 1:
-                    nextXPosition--;
-                    break;
-                case 2:
-                    nextYPosition++;
-                    break;
-                case 3:
-                    nextYPosition--;
-                    break;
-            }
-
-            Organism organismFromNextPosition = board.getOrganismFromField(nextXPosition, nextYPosition);
-            if (organismFromNextPosition == null) {
-                super.positionX = nextXPosition;
-                super.positionY = nextYPosition;
-                break;
-            } else {
-                if (checkIfTheSameSpecies(organismFromNextPosition)) {
-                    multiplication();
-                    break;
-                } else {
-                    if (organismFromNextPosition.isPlant()) {
-                        eat(organismFromNextPosition);
-                    } else {
-                        checkIfFight(organismFromNextPosition);
-                    }
-                    break;
-                }
-            }
-        }
     }
 }

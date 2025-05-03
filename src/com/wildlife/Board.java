@@ -15,7 +15,6 @@ public class Board {
     private final int y;
     private ArrayList<Organism> organisms = new ArrayList<>();
     private ArrayList<Organism> newOrganisms = new ArrayList<>();
-    private ArrayList<Organism> sortedOrganisms = new ArrayList<>();
 
     public Board(int x, int y) {
         this.x = x;
