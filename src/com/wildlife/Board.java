@@ -3,8 +3,11 @@ package com.wildlife;
 import com.wildlife.organisms.Organism;
 import com.wildlife.organisms.animals.carnivores.Bear;
 import com.wildlife.organisms.animals.carnivores.Wolf;
+import com.wildlife.organisms.plants.Grass;
+import com.wildlife.organisms.plants.Strawberry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 //2 zmienne pole 1 i pole 2
@@ -13,6 +16,7 @@ public class Board {
     private final int y;
     private ArrayList<Organism> organisms = new ArrayList<>(); //List Interface, a Array to instancja Interface (
     private ArrayList<Organism> newOrganisms = new ArrayList<>(); // Arraylist nie ma ustalonego z góry limitu ilości
+    private ArrayList<Organism> sortedOrganisms = new ArrayList<>();
     // typ generyczny (1 array list może przechoywać wiele różnych typów) w typie generycznym nie trzeba dwa razy podawać dwa razy co jest w środku
 
     //konstruktor
@@ -32,13 +36,13 @@ public class Board {
 
     private void initializeOrganisms() {
         //organisms.add(new Bird(0, 0, this));
-        organisms.add(new Bear(3,3, this));
+        //organisms.add(new Bear(3,3, this));
         organisms.add(new Bear(3, 2, this));
-        //organisms.add(new Grass(1, 3, this));
-        //organisms.add(new Strawberry(1, 4, this));
+        organisms.add(new Grass(1, 3, this));
+        organisms.add(new Strawberry(1, 4, this));
         //organisms.add(new Mushroom(9, 9, this));
         //organisms.add(new Wolf(8, 7, this));
-        //organisms.add(new Wolf(8, 8,this));
+        organisms.add(new Wolf(8, 8,this));
         //organisms.add(new Wolf(8, 6, this));
         organisms.add(new Bear(4, 3, this));
     }
@@ -75,6 +79,7 @@ public class Board {
     }
 
     public void move() {
+        sortOrganisms(organisms);
         for (Organism organism : organisms) {
             organism.performAction();
         }
@@ -103,6 +108,10 @@ public class Board {
         organisms.addAll(newOrganisms);
         newOrganisms.clear();
     }
-
-
+    public void sortOrganisms(ArrayList<Organism> organisms) {
+        Collections.sort(organisms);
+        for (Organism organism : organisms) {
+            System.out.print(organism.getInitiative());
+        }
+    }
 }

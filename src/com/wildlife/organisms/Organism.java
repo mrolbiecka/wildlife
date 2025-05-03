@@ -1,8 +1,9 @@
 package com.wildlife.organisms;
 
 import com.wildlife.Board;
+// nawiasy trójkątne - typ generyczny
 
-public abstract class Organism {
+public abstract class Organism implements Comparable<Organism> {
     protected int positionX;
     protected int positionY;
     protected Board board;
@@ -20,6 +21,12 @@ public abstract class Organism {
 // getter
     public int getPositionY() {
         return positionY;
+    }
+    @Override
+    public int compareTo(Organism organism) {
+        if (organism.getInitiative() > this.getInitiative()) return 1;
+        if (organism.getInitiative() < this.getInitiative()) return -1;
+        return 0;
     }
 
     public abstract void performAction();
