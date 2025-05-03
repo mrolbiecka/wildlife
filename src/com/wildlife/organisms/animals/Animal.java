@@ -57,6 +57,9 @@ public abstract class Animal extends Organism {
                     nextYPosition--;
                     break;
             }
+            if (nextXPosition < 0 || nextXPosition >= board.getSizeX() || nextYPosition < 0 || nextYPosition >= board.getSizeY()) {
+                continue;
+            }
 
             Organism organismFromNextPosition = board.getOrganismFromField(nextXPosition, nextYPosition);
             if (organismFromNextPosition == null) {
