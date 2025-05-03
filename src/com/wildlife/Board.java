@@ -3,7 +3,9 @@ package com.wildlife;
 import com.wildlife.organisms.Organism;
 import com.wildlife.organisms.animals.carnivores.Bear;
 import com.wildlife.organisms.animals.carnivores.Wolf;
+import com.wildlife.organisms.animals.herbivores.Bird;
 import com.wildlife.organisms.plants.Grass;
+import com.wildlife.organisms.plants.Mushroom;
 import com.wildlife.organisms.plants.Strawberry;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class Board {
     private final int y;
     private ArrayList<Organism> organisms = new ArrayList<>();
     private ArrayList<Organism> newOrganisms = new ArrayList<>();
+    private ArrayList<Organism> organismsToRemove = new ArrayList<>();
 
     public Board(int x, int y) {
         this.x = x;
@@ -31,26 +34,21 @@ public class Board {
     }
 
     private void initializeOrganisms() {
-        //organisms.add(new Bird(0, 0, this));
-        //organisms.add(new Bear(3,3, this));
-        organisms.add(new Bear(3, 2, this));
-        organisms.add(new Grass(1, 3, this));
+        organisms.add(new Bird(0, 0, this));
+        organisms.add(new Bear(3,3, this));
+        organisms.add(new Bear(1, 1, this));
+
+        organisms.add(new Grass(1, 0, this));
         organisms.add(new Strawberry(1, 4, this));
-        //organisms.add(new Mushroom(9, 9, this));
-        //organisms.add(new Wolf(8, 7, this));
+        organisms.add(new Mushroom(9, 9, this));
+        organisms.add(new Wolf(8, 7, this));
         organisms.add(new Wolf(8, 8,this));
-        //organisms.add(new Wolf(8, 6, this));
         organisms.add(new Bear(4, 3, this));
     }
 
     public void removeOrganismFromBoard(int X, int Y) {
-        Iterator<Organism> iterator = organisms.iterator();
-        while (iterator.hasNext()) {
-            Organism organism = iterator.next();
-            if (organism.getPositionY() == Y && organism.getPositionX() == X) {
-                iterator.remove();
-            }
-        }
+        Organism organismToRemove = getOrganismFromField(X, Y);
+        organismsToRemove.add(organismToRemove);
     }
 
     public void printBoard() {
@@ -75,11 +73,18 @@ public class Board {
     }
 
     public void move() {
-        sortOrganisms(organisms);
-        for (Organism organism : organisms) {
-            organism.performAction();
+        Collections.sort(organisms);
+        Iterator<Organism> iterator = organisms.iterator();
+        while (iterator.hasNext()) {
+            Organism organism = iterator.next();
+            if (organismsToRemove.contains(organism)) {
+                iterator.remove();
+                organismsToRemove.remove(organism);
+            } else {
+                organism.performAction();
+            }
         }
-        addnewOrganismtoOrganisms();
+        addNewOrganisms();
     }
 
     public Organism getOrganismFromField(int x, int y) {
@@ -100,14 +105,8 @@ public class Board {
         newOrganisms.add(newOrganism);
     }
 
-    public void addnewOrganismtoOrganisms() {
+    private void addNewOrganisms() {
         organisms.addAll(newOrganisms);
         newOrganisms.clear();
-    }
-    public void sortOrganisms(ArrayList<Organism> organisms) {
-        Collections.sort(organisms);
-        for (Organism organism : organisms) {
-            System.out.print(organism.getInitiative());
-        }
     }
 }
