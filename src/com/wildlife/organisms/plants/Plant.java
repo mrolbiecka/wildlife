@@ -31,7 +31,7 @@ public abstract class Plant extends Organism {
 
 
     @Override
-    public void multiplication() {
+    protected void multiplication() {
         int probability = random.nextInt(0, 100);
         int nextPositionX = super.positionX;
         int nextPositionY = super.positionY;

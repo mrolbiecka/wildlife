@@ -10,16 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-//2 zmienne pole 1 i pole 2
 public class Board {
     private final int x;
     private final int y;
-    private ArrayList<Organism> organisms = new ArrayList<>(); //List Interface, a Array to instancja Interface (
-    private ArrayList<Organism> newOrganisms = new ArrayList<>(); // Arraylist nie ma ustalonego z góry limitu ilości
+    private ArrayList<Organism> organisms = new ArrayList<>();
+    private ArrayList<Organism> newOrganisms = new ArrayList<>();
     private ArrayList<Organism> sortedOrganisms = new ArrayList<>();
-    // typ generyczny (1 array list może przechoywać wiele różnych typów) w typie generycznym nie trzeba dwa razy podawać dwa razy co jest w środku
 
-    //konstruktor
     public Board(int x, int y) {
         this.x = x;
         this.y = y;

@@ -1,14 +1,14 @@
 package com.wildlife.organisms;
 
 import com.wildlife.Board;
-// nawiasy trójkątne - typ generyczny
+
 
 public abstract class Organism implements Comparable<Organism> {
     protected int positionX;
     protected int positionY;
     protected Board board;
 
-// napraw, żeby było przekazywane dynamicznie
+
     public Organism(int x, int y, Board board) {
         positionX = x;
         positionY = y;
@@ -18,7 +18,7 @@ public abstract class Organism implements Comparable<Organism> {
     public int getPositionX() {
         return positionX;
     }
-// getter
+
     public int getPositionY() {
         return positionY;
     }
@@ -31,7 +31,7 @@ public abstract class Organism implements Comparable<Organism> {
 
     public abstract void performAction();
 
-    public abstract void multiplication();
+    protected abstract void multiplication();
 
     public abstract boolean isPlant();
 

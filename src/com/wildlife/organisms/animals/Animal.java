@@ -8,12 +8,6 @@ import com.wildlife.organisms.animals.herbivores.Bird;
 import com.wildlife.organisms.animals.herbivores.Boar;
 import com.wildlife.organisms.animals.herbivores.Hare;
 import com.wildlife.organisms.animals.herbivores.Squirrel;
-import com.wildlife.organisms.plants.Grass;
-import com.wildlife.organisms.plants.Mushroom;
-import com.wildlife.organisms.plants.Strawberry;
-
-
-import java.util.Iterator;
 import java.util.Random;
 
 public abstract class Animal extends Organism {
@@ -23,7 +17,6 @@ public abstract class Animal extends Organism {
     private byte hunger;
     private byte maxHunger;
     private final int spreadingPercentProbability = 50;
-    // void - typ który nic nie zwraca
 
     public Animal(int x, int y, Board board, byte initiative, byte maxHunger) {
         super(x, y, board); // odwołuje się do konstruktora klasy wyżej (Organism) a super. odwołuje się do metod klasy wyżej (SUPER DAJE DO KLASY WYŻĘJ)
@@ -38,7 +31,7 @@ public abstract class Animal extends Organism {
     }
 
     @Override
-    public void multiplication() {
+    protected void multiplication() {
         int direction = random.nextInt(1, 5);
         int[] directions = {direction, direction + 1, direction + 2, direction + 3};
         boolean successfulMove = false;
@@ -81,68 +74,6 @@ public abstract class Animal extends Organism {
             }
         }
     }
-//        boolean successfulMove = false;
-//        int nextPositionX = super.positionX;
-//        int nextPositionY = super.positionY;
-//        int direction = random.nextInt(1, 5);
-//        int[] directions = {direction, direction + 1, direction + 2, direction + 3};
-//
-//        for (int dir : directions) {
-//            if (dir % 4 == 0) {
-//                int nextPosition = super.positionX + 1;
-//                if (nextPosition < board.getSizeX()) {
-//                    if (board.getOrganismFromField(nextPosition, positionY) == null) {
-//                        nextPositionX = nextPosition;
-//                        successfulMove = true;
-//                        break;
-//                    }
-//                }
-//            } else if (dir % 4 == 1) {
-//                int nextPosition = super.positionX - 1;
-//                if (nextPosition >= 0) {
-//                    if (board.getOrganismFromField(nextPosition, positionY) == null) {
-//                        nextPositionX = nextPosition;
-//                        successfulMove = true;
-//                        break;
-//                    }
-//                }
-//            } else if (dir % 4 == 2) {
-//                int nextPosition = super.positionY + 1;
-//                if (nextPosition < board.getSizeY()) {
-//                    if (board.getOrganismFromField(positionX, nextPosition) == null) {
-//                        nextPositionY = nextPosition;
-//                        successfulMove = true;
-//                        break;
-//                    }
-//                }
-//            } else if (dir % 4 == 3) {
-//                int nextPosition = super.positionY - 1;
-//                if (nextPosition >= 0) {
-//                    if (board.getOrganismFromField(positionX, nextPosition) == null) {
-//                        nextPositionY = nextPosition;
-//                        successfulMove = true;
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-
-//         if (successfulMove) {
-//             Organism organismFromField = board.getOrganismFromField(nextPositionX, nextPositionY);
-//             if (organismFromField == null) {
-//                 String myOrganismClass = this.getClass().getSimpleName();
-//                 switch (myOrganismClass) {
-//                     case "Bird" -> board.createOrganism(new Bird(nextPositionX, nextPositionY, board));
-//                     case "Boar" -> board.createOrganism(new Boar(nextPositionX, nextPositionY, board));
-//                     case "Hare" -> board.createOrganism(new Hare(nextPositionX, nextPositionY, board));
-//                     case "Squirrel" -> board.createOrganism(new Squirrel(nextPositionX, nextPositionY, board));
-//                     case "Bear" -> board.createOrganism(new Bear(nextPositionX, nextPositionY, board));
-//                     case "Wolf" -> board.createOrganism(new Wolf(nextPositionX, nextPositionY, board));
-//                 }
-//             }
-//         }
-//        System.out.println("Organism was created on the field" + "pos X: " + nextPositionX + "pos Y: "  + nextPositionY);
-//    }
 
     private void eat(Organism organism) {
         int posX = organism.getPositionX();
@@ -154,7 +85,7 @@ public abstract class Animal extends Organism {
     }
 
 
-    public void checkIfFight(Organism organism) {
+    private void checkIfFight(Organism organism) {
         int probability = random.nextInt(0, 100);
         if (probability < spreadingPercentProbability) {
             eat(organism);
