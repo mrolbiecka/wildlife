@@ -18,4 +18,3 @@ public class Tests {
         assertTrue(b.getPositionX() != startingPosX || b.getPositionY() != startingPosY);
     }
 }
-//testy najpierw dane, potem metoda (jedna), assert (sprawdzenie)
